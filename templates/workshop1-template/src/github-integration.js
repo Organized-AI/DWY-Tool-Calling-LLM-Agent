@@ -1,0 +1,400 @@
+/**
+ * GitHub Integration for Project Setup and Management
+ * Automated repository creation and project structure setup
+ */
+
+const { Octokit } = require('@octokit/rest');
+const { getDemoGitHubRepos } = require('./demo-data');
+
+class GitHubIntegration {
+  constructor(token) {
+    this.token = token;
+    this.octokit = token ? new Octokit({ auth: token }) : null;
+  }
+
+  /**
+   * Create a new GitHub repository for the project
+   */
+  async createRepository(repoData) {
+    if (!this.octokit) {
+      throw new Error('GitHub token not configured');
+    }
+
+    try {
+      const response = await this.octokit.repos.create({
+        name: repoData.name,
+        description: repoData.description,
+        private: repoData.private || true,
+        auto_init: true,
+        gitignore_template: 'Node',
+        license_template: 'mit'
+      });
+
+      console.log(`✅ Created GitHub repository: ${response.data.full_name}`);
+
+      // Initialize project structure
+      await this.initializeProjectStructure(response.data.owner.login, response.data.name);
+
+      return {
+        id: response.data.id,
+        name: response.data.name,
+        full_name: response.data.full_name,
+        url: response.data.html_url,
+        clone_url: response.data.clone_url,
+        private: response.data.private,
+        created_at: response.data.created_at
+      };
+
+    } catch (error) {
+      console.error('Error creating GitHub repository:', error);
+      throw new Error(`Failed to create repository: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get user's repositories
+   */
+  async getRepositories() {
+    if (!this.octokit) {
+      // Return demo data if no token
+      return getDemoGitHubRepos();
+    }
+
+    try {
+      const response = await this.octokit.repos.listForAuthenticatedUser({
+        sort: 'updated',
+        per_page: 20
+      });
+
+      return response.data.map(repo => ({
+        id: repo.id,
+        name: repo.name,
+        full_name: repo.full_name,
+        url: repo.html_url,
+        description: repo.description,
+        private: repo.private,
+        language: repo.language,
+        stars: repo.stargazers_count,
+        forks: repo.forks_count,
+        created_at: repo.created_at,
+        updated_at: repo.updated_at
+      }));
+
+    } catch (error) {
+      console.error('Error fetching repositories:', error);
+      throw new Error(`Failed to fetch repositories: ${error.message}`);
+    }
+  }
+
+  /**
+   * Initialize project structure in the repository
+   */
+  async initializeProjectStructure(owner, repo) {
+    try {
+      // Create basic project structure files
+      const files = [
+        {
+          path: 'README.md',
+          content: this.generateReadmeContent(repo)
+        },
+        {
+          path: 'package.json',
+          content: this.generatePackageJson(repo)
+        },
+        {
+          path: 'src/index.js',
+          content: this.generateMainFile()
+        },
+        {
+          path: '.env.example',
+          content: this.generateEnvExample()
+        },
+        {
+          path: 'docs/setup.md',
+          content: this.generateSetupGuide()
+        }
+      ];
+
+      // Create files one by one
+      for (const file of files) {
+        await this.createFile(owner, repo, file.path, file.content);
+        await new Promise(resolve => setTimeout(resolve, 100)); // Rate limiting
+      }
+
+      console.log(`✅ Initialized project structure for ${owner}/${repo}`);
+
+    } catch (error) {
+      console.error('Error initializing project structure:', error);
+      // Don't throw here - repository was created successfully
+    }
+  }
+
+  /**
+   * Create a file in the repository
+   */
+  async createFile(owner, repo, path, content) {
+    try {
+      await this.octokit.repos.createOrUpdateFileContents({
+        owner,
+        repo,
+        path,
+        message: `Initialize project structure: ${path}`,
+        content: Buffer.from(content).toString('base64')
+      });
+
+    } catch (error) {
+      console.error(`Error creating file ${path}:`, error);
+    }
+  }
+
+  /**
+   * Generate README.md content
+   */
+  generateReadmeContent(repoName) {
+    return `# ${repoName}
+
+AI-enhanced project created with Workshop 1: Project Planning Systems
+
+## 🚀 Getting Started
+
+This project was automatically generated with optimal structure and configuration.
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Installation
+\`\`\`bash
+npm install
+\`\`\`
+
+### Running the Application
+\`\`\`bash
+npm start
+\`\`\`
+
+## 📁 Project Structure
+
+- \`src/\` - Source code
+- \`docs/\` - Documentation
+- \`.env.example\` - Environment variables template
+
+## 🛠️ Development
+
+This project includes:
+- Automated setup and configuration
+- AI-optimized project structure
+- Integration-ready architecture
+- Development best practices
+
+## 📚 Documentation
+
+See \`docs/setup.md\` for detailed setup instructions.
+
+---
+
+Generated by [DWY Tool Calling LLM Agent](https://github.com/jhillbht/dwy-tool-calling-llm-agent)
+`;
+  }
+
+  /**
+   * Generate package.json content
+   */
+  generatePackageJson(repoName) {
+    return JSON.stringify({
+      name: repoName.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
+      version: '1.0.0',
+      description: 'AI-enhanced project with automated setup and optimization',
+      main: 'src/index.js',
+      scripts: {
+        start: 'node src/index.js',
+        dev: 'nodemon src/index.js',
+        test: 'jest'
+      },
+      keywords: ['ai', 'automation', 'project-planning'],
+      author: 'Generated by DWY Tool Calling LLM Agent',
+      license: 'MIT',
+      dependencies: {
+        'express': '^4.18.2',
+        'dotenv': '^16.3.1'
+      },
+      devDependencies: {
+        'nodemon': '^3.0.1',
+        'jest': '^29.7.0'
+      }
+    }, null, 2);
+  }
+
+  /**
+   * Generate main application file
+   */
+  generateMainFile() {
+    return `#!/usr/bin/env node
+
+/**
+ * Main Application Entry Point
+ * Generated by Workshop 1: Project Planning Systems
+ */
+
+require('dotenv').config();
+
+console.log('🚀 Application starting...');
+console.log('✨ Generated with AI-enhanced project planning');
+
+// Your application logic here
+function main() {
+  console.log('Hello from your AI-generated project!');
+  console.log('Ready for development and optimization.');
+}
+
+main();
+`;
+  }
+
+  /**
+   * Generate environment variables example
+   */
+  generateEnvExample() {
+    return `# Environment Variables
+# Copy this file to .env and configure your values
+
+# Application Configuration
+NODE_ENV=development
+PORT=3000
+
+# AI Integration (optional)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Database (if needed)
+DATABASE_URL=your_database_url_here
+
+# Other Services
+API_BASE_URL=https://api.example.com
+DEBUG=false
+`;
+  }
+
+  /**
+   * Generate setup guide
+   */
+  generateSetupGuide() {
+    return `# Setup Guide
+
+This project was generated with AI-enhanced planning and optimization.
+
+## Quick Setup
+
+1. **Clone the repository**
+   \`\`\`bash
+   git clone <repository-url>
+   cd <project-name>
+   \`\`\`
+
+2. **Install dependencies**
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+3. **Configure environment**
+   \`\`\`bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   \`\`\`
+
+4. **Start development**
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+
+## Project Structure
+
+This project follows AI-optimized patterns for:
+- Scalable architecture
+- Easy maintenance
+- Team collaboration
+- Integration readiness
+
+## Next Steps
+
+1. Review the generated structure
+2. Customize for your specific needs
+3. Add your business logic
+4. Deploy and iterate
+
+## Support
+
+Generated by [DWY Tool Calling LLM Agent](https://github.com/jhillbht/dwy-tool-calling-llm-agent)
+`;
+  }
+
+  /**
+   * Get repository information
+   */
+  async getRepository(owner, repo) {
+    if (!this.octokit) {
+      throw new Error('GitHub token not configured');
+    }
+
+    try {
+      const response = await this.octokit.repos.get({ owner, repo });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching repository:', error);
+      throw new Error(`Failed to fetch repository: ${error.message}`);
+    }
+  }
+
+  /**
+   * Create a pull request
+   */
+  async createPullRequest(owner, repo, pullData) {
+    if (!this.octokit) {
+      throw new Error('GitHub token not configured');
+    }
+
+    try {
+      const response = await this.octokit.pulls.create({
+        owner,
+        repo,
+        title: pullData.title,
+        body: pullData.body,
+        head: pullData.head,
+        base: pullData.base
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error('Error creating pull request:', error);
+      throw new Error(`Failed to create pull request: ${error.message}`);
+    }
+  }
+
+  /**
+   * Add webhook for project notifications
+   */
+  async addWebhook(owner, repo, webhookUrl) {
+    if (!this.octokit) {
+      throw new Error('GitHub token not configured');
+    }
+
+    try {
+      const response = await this.octokit.repos.createWebhook({
+        owner,
+        repo,
+        name: 'web',
+        config: {
+          url: webhookUrl,
+          content_type: 'json'
+        },
+        events: ['push', 'pull_request', 'issues']
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error('Error adding webhook:', error);
+      throw new Error(`Failed to add webhook: ${error.message}`);
+    }
+  }
+}
+
+module.exports = { GitHubIntegration };

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop 1: Project Planning Systems</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🚀 Project Planning Systems</h1>
+                <p class="subtitle">AI-Enhanced Project Planning with DeepInvent.ai & GitHub Integration</p>
+                <div class="demo-badge" id="demo-badge">
+                    <span>📋 Demo Mode</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="tab-btn" data-tab="projects">📋 Projects</button>
+            <button class="tab-btn" data-tab="github">🐙 GitHub</button>
+            <button class="tab-btn" data-tab="patents">💡 Patents</button>
+            <button class="tab-btn" data-tab="analytics">📈 Analytics</button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <div class="tab-content active" id="dashboard">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Active Projects</h3>
+                    <div class="stat-number" id="active-projects">2</div>
+                    <div class="stat-change positive">+1 this week</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Optimization Score</h3>
+                    <div class="stat-number" id="optimization-score">88.9</div>
+                    <div class="stat-change positive">+12.3% from baseline</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Time Saved</h3>
+                    <div class="stat-number" id="time-saved">7.2</div>
+                    <div class="stat-label">weeks</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Cost Savings</h3>
+                    <div class="stat-number" id="cost-savings">$8.4k</div>
+                    <div class="stat-change positive">22% under budget</div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <div class="card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list" id="recent-activity">
+                        <div class="activity-item">
+                            <span class="activity-icon">✅</span>
+                            <span class="activity-text">Project "AI Marketing Assistant" optimized</span>
+                            <span class="activity-time">2 hours ago</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">🐙</span>
+                            <span class="activity-text">GitHub repository created</span>
+                            <span class="activity-time">1 day ago</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-icon">💡</span>
+                            <span class="activity-text">Patent analysis completed</span>
+                            <span class="activity-time">2 days ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>AI Optimization Insights</h3>
+                    <div class="insights-list" id="ai-insights">
+                        <div class="insight-item">
+                            <span class="insight-icon">⚡</span>
+                            <span class="insight-text">Task reordering can save 3.2 days</span>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-icon">👥</span>
+                            <span class="insight-text">Resource allocation 91% optimized</span>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-icon">🎯</span>
+                            <span class="insight-text">Critical path reduced by 12%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div class="tab-content" id="projects">
+            <div class="tab-header">
+                <h2>Project Management</h2>
+                <button class="btn btn-primary" onclick="showCreateProject()">➕ Create Project</button>
+            </div>
+
+            <div class="projects-grid" id="projects-list">
+                <!-- Projects will be loaded here -->
+            </div>
+
+            <!-- Create Project Modal -->
+            <div class="modal" id="create-project-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Create New Project</h3>
+                        <button class="modal-close" onclick="hideCreateProject()">&times;</button>
+                    </div>
+                    <form id="create-project-form">
+                        <div class="form-group">
+                            <label for="project-name">Project Name</label>
+                            <input type="text" id="project-name" required placeholder="Enter project name">
+                        </div>
+                        <div class="form-group">
+                            <label for="project-description">Description</label>
+                            <textarea id="project-description" placeholder="Describe your project"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="project-goals">Goals (one per line)</label>
+                            <textarea id="project-goals" placeholder="Build MVP&#10;User Testing&#10;Market Launch"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="project-timeline">Timeline</label>
+                            <select id="project-timeline">
+                                <option value="4 weeks">4 weeks</option>
+                                <option value="8 weeks">8 weeks</option>
+                                <option value="12 weeks" selected>12 weeks</option>
+                                <option value="16 weeks">16 weeks</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="project-team">Team Members</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" value="developer"> Developer</label>
+                                <label><input type="checkbox" value="designer"> Designer</label>
+                                <label><input type="checkbox" value="marketer"> Marketer</label>
+                                <label><input type="checkbox" value="project manager"> Project Manager</label>
+                            </div>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-secondary" onclick="hideCreateProject()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Create Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- GitHub Tab -->
+        <div class="tab-content" id="github">
+            <div class="tab-header">
+                <h2>GitHub Integration</h2>
+                <button class="btn btn-primary" onclick="showCreateRepo()">🐙 Create Repository</button>
+            </div>
+
+            <div class="github-status" id="github-status">
+                <div class="status-item">
+                    <span class="status-label">Connection Status:</span>
+                    <span class="status-value demo">Demo Mode</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Repositories:</span>
+                    <span class="status-value" id="repo-count">2</span>
+                </div>
+            </div>
+
+            <div class="repos-list" id="repos-list">
+                <!-- Repositories will be loaded here -->
+            </div>
+
+            <!-- Create Repository Modal -->
+            <div class="modal" id="create-repo-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Create GitHub Repository</h3>
+                        <button class="modal-close" onclick="hideCreateRepo()">&times;</button>
+                    </div>
+                    <form id="create-repo-form">
+                        <div class="form-group">
+                            <label for="repo-name">Repository Name</label>
+                            <input type="text" id="repo-name" required placeholder="my-awesome-project">
+                        </div>
+                        <div class="form-group">
+                            <label for="repo-description">Description</label>
+                            <textarea id="repo-description" placeholder="Brief description of your project"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="repo-private" checked>
+                                Private repository
+                            </label>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-secondary" onclick="hideCreateRepo()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Create Repository</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patents Tab -->
+        <div class="tab-content" id="patents">
+            <div class="tab-header">
+                <h2>Patent Analysis</h2>
+                <button class="btn btn-primary" onclick="showPatentAnalysis()">💡 Analyze Innovation</button>
+            </div>
+
+            <div class="patent-status" id="patent-status">
+                <div class="status-card">
+                    <h4>Recent Analysis</h4>
+                    <p><strong>AI-Powered Marketing Content Optimization</strong></p>
+                    <div class="patent-score">
+                        <span class="score-label">Patentability Score:</span>
+                        <span class="score-value high">85%</span>
+                    </div>
+                    <div class="patent-recommendation">
+                        <strong>Recommendation:</strong> Proceed with provisional patent application
+                    </div>
+                </div>
+
+                <div class="status-card">
+                    <h4>Similar Patents Found</h4>
+                    <div class="patent-count">7</div>
+                    <p>Similar patents in the database</p>
+                </div>
+
+                <div class="status-card">
+                    <h4>Estimated Filing Cost</h4>
+                    <div class="cost-range">$5,000 - $8,000</div>
+                    <p>Including legal fees</p>
+                </div>
+            </div>
+
+            <!-- Patent Analysis Modal -->
+            <div class="modal" id="patent-analysis-modal">
+                <div class="modal-content large">
+                    <div class="modal-header">
+                        <h3>Analyze Innovation for Patentability</h3>
+                        <button class="modal-close" onclick="hidePatentAnalysis()">&times;</button>
+                    </div>
+                    <form id="patent-analysis-form">
+                        <div class="form-group">
+                            <label for="innovation-title">Innovation Title</label>
+                            <input type="text" id="innovation-title" required placeholder="Your innovation name">
+                        </div>
+                        <div class="form-group">
+                            <label for="innovation-description">Technical Description</label>
+                            <textarea id="innovation-description" rows="6" placeholder="Detailed technical description of your innovation"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="innovation-category">Category</label>
+                            <select id="innovation-category">
+                                <option value="software">Software/AI</option>
+                                <option value="hardware">Hardware</option>
+                                <option value="method">Method/Process</option>
+                                <option value="system">System</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inventors">Inventors (comma-separated)</label>
+                            <input type="text" id="inventors" placeholder="John Doe, Jane Smith">
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-secondary" onclick="hidePatentAnalysis()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Analyze Innovation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div class="tab-content" id="analytics">
+            <div class="tab-header">
+                <h2>Project Analytics</h2>
+                <button class="btn btn-primary" onclick="refreshAnalytics()">🔄 Refresh Data</button>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="chart-card">
+                    <h4>Optimization Score Trend</h4>
+                    <div class="chart-placeholder">
+                        <div class="chart-bar" style="height: 60%">Week 1</div>
+                        <div class="chart-bar" style="height: 75%">Week 2</div>
+                        <div class="chart-bar" style="height: 85%">Week 3</div>
+                        <div class="chart-bar" style="height: 89%">Week 4</div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h4>Resource Utilization</h4>
+                    <div class="utilization-chart">
+                        <div class="utilization-item">
+                            <span>Developers</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%">92%</div>
+                            </div>
+                        </div>
+                        <div class="utilization-item">
+                            <span>Designers</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%">78%</div>
+                            </div>
+                        </div>
+                        <div class="utilization-item">
+                            <span>Budget</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 68%">68%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-insights">
+                <h4>AI-Generated Insights</h4>
+                <div class="insight-cards">
+                    <div class="insight-card positive">
+                        <h5>⚡ Performance Boost</h5>
+                        <p>Task reordering optimization saved 5.0 days across active projects</p>
+                    </div>
+                    <div class="insight-card warning">
+                        <h5>⚠️ Resource Alert</h5>
+                        <p>Designer capacity will reach 100% in week 6. Consider redistributing tasks.</p>
+                    </div>
+                    <div class="insight-card info">
+                        <h5>📊 Trend Analysis</h5>
+                        <p>Project efficiency improved 28% since implementing AI optimization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Processing with AI...</div>
+        </div>
+
+        <!-- Notification system -->
+        <div class="notification-container" id="notification-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
