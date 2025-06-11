@@ -1,0 +1,75 @@
+{
+  "name": "dwy-tool-calling-agent-starter",
+  "version": "1.0.0",
+  "description": "Starter template for DWY Tool Calling LLM Agent project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "node scripts/build-backend.js",
+    "build:frontend": "cd frontend && npm run build",
+    "mcp:start": "node src/mcp/server.js",
+    "mcp:dev": "nodemon src/mcp/server.js",
+    "db:setup": "node scripts/setup-database.js",
+    "health:check": "./scripts/health-check.sh",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:restart": "docker-compose restart",
+    "logs": "docker-compose logs -f",
+    "format": "prettier --write .",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "dotenv": "^16.3.0",
+    "neo4j-driver": "^5.12.0",
+    "axios": "^1.5.0",
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "ws": "^8.13.0",
+    "multer": "^1.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "joi": "^17.9.0",
+    "winston": "^3.10.0",
+    "node-cron": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0",
+    "jest": "^29.6.0",
+    "supertest": "^6.3.0",
+    "eslint": "^8.47.0",
+    "prettier": "^3.0.0",
+    "@types/node": "^20.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "tool-calling",
+    "mcp",
+    "knowledge-graph",
+    "voice-ai",
+    "video-generation",
+    "local-ai",
+    "hackathon"
+  ],
+  "author": "DWY Tool Calling LLM Agent Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhillbht/dwy-tool-calling-llm-agent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jhillbht/dwy-tool-calling-llm-agent/issues"
+  },
+  "homepage": "https://github.com/jhillbht/dwy-tool-calling-llm-agent#readme"
+}
