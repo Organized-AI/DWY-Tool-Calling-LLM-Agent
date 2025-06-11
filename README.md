@@ -1,200 +1,150 @@
-# DWY Tool Calling LLM Agent
-**Organized AI // Vibe Coders Hackathon**
+# DWY Tool Calling LLM Agent 🤖
+**Build AI Agents Through Conversation with Cursor IDE**
 
-The DWY (Do With You) Tool Calling LLM Agent is the comprehensive deliverable for the Organized AI // Vibe Coders Hackathon. Built through six progressive workshops, participants create a complete AI agent capable of tool calling, persistent memory, content generation, and local deployment.
+> **Perfect for Beginner Vibe Coders!** Use Cursor's Agent Chat to build a complete AI agent system without writing complex code manually.
 
-**Event**: June 21st-22nd  
-**Participants**: 80 business leaders, developers, and AI enthusiasts  
-**Format**: Progressive workshop series building toward complete AI agent  
+## 🎯 **What You'll Build**
 
-## 🚀 Quick Start
+A complete **Tool Calling LLM Agent** that can:
+- 📋 Plan and manage projects with AI assistance
+- 🧠 Remember conversations and decisions in a knowledge graph
+- 📢 Communicate with customers using voice AI
+- 🎬 Generate marketing videos automatically
+- 🔧 Call external tools and APIs
+- 🏠 Run completely locally for privacy
 
-### For Beginners
-Start here if you're new to coding or AI development:
-- Read the [Beginner Setup Guide](docs/beginner-setup-guide.md) - Complete walkthrough from zero to running code
-- Try [Workshop 1 Template](templates/workshop1-template/) - Learn one concept at a time
-- Follow the [Cursor AI Tutorial](docs/cursor-ai-tutorial.md) - Master AI-assisted development
+## 🚀 **Quick Start with Cursor**
 
-### For Developers
-See everything working together:
-- Clone and run the [Complete Agent](reference-implementation/complete-agent/) 
-- Read [project_overview.md](project_overview.md) - Understand the full architecture
-- Explore individual workshops in the `workshops/` directory
+### **1. Open in Cursor IDE**
+```bash
+git clone https://github.com/jhillbht/dwy-tool-calling-llm-agent.git
+cd dwy-tool-calling-llm-agent
+```
+Open the folder in Cursor IDE
 
-### For Advanced Users
-Jump straight into building:
-- Review the [Platform Integrations](docs/platform-integrations.md)
-- Check out the [Complete Agent Implementation](reference-implementation/complete-agent/)
-- Customize workshop components for your specific needs
+### **2. Start Agent Chat**
+Press `Cmd+K` (Mac) or `Ctrl+K` (Windows) and paste this:
 
-## 📁 Project Structure
+```
+Help me build the complete DWY Tool Calling LLM Agent! I'm a beginner vibe coder and want to use Cursor's AI to build this step by step. Start with Workshop 1 and guide me through all 6 workshops conversationally.
+```
+
+### **3. Follow the Conversation**
+Let Cursor's AI guide you through building each component:
+
+1. **Workshop 1**: Project Planning (DeepInvent.ai)
+2. **Workshop 2**: Memory System (Penumbra.ai)
+3. **Workshop 3**: Marketing AI (Sindarin.tech)
+4. **Workshop 4**: Video Generation (Texel.ai)
+5. **Workshop 5**: Tool Integration (Toolhouse.ai)
+6. **Workshop 6**: Local AI (WebAI.com)
+
+## 📖 **Vibe Coding Approach**
+
+Instead of traditional coding tutorials, this project uses **conversational AI development**:
+
+- 💬 **Chat with Cursor** to implement features
+- 🤖 **AI writes the code** while you focus on the vision
+- 🔄 **Iterate quickly** through conversation
+- 🎨 **Customize easily** by asking for changes
+- 📚 **Learn by doing** with AI explanations
+
+## 📁 **Project Structure**
 
 ```
 dwy-tool-calling-llm-agent/
-├── 📄 project_overview.md              # Complete project vision & architecture
-├── 📁 workshops/                       # 6 workshop documentation files
-│   ├── workshop1_project_planning_systems.md
-│   ├── workshop2_knowledge_graph_implementation.md
-│   ├── workshop3_marketing_ai_services.md
-│   ├── workshop4_ai_video_generation.md
-│   ├── workshop5_tool_calling_mcp_integration.md
-│   └── workshop6_local_ai_deployment.md
-├── 📁 reference-implementation/         # Working code examples
-│   ├── 📁 complete-agent/              # ✨ Full integrated DWY agent
-│   │   ├── src/agent.js                # Main orchestrator
-│   │   ├── src/workshops/              # Individual workshop components
-│   │   ├── package.json & .env.example # Easy setup
-│   │   └── README.md                   # Detailed implementation guide
-│   └── docker-compose.yml              # Container setup
-├── 📁 templates/                       # 🎯 Standalone workshop starters
-│   ├── 📁 workshop1-template/          # Project planning starter
-│   │   ├── index.js                    # Complete standalone example
-│   │   ├── package.json                # Ready to run
-│   │   └── README.md                   # Step-by-step guide
-│   ├── 📁 workshop2-template/          # Knowledge graph starter
-│   └── 📁 project-starter/             # Basic project template
-├── 📁 docs/                           # 📚 Comprehensive documentation
-│   ├── beginner-setup-guide.md        # Complete beginner walkthrough
-│   ├── cursor-ai-tutorial.md          # Master AI-assisted development
-│   ├── setup-guide.md                 # Technical setup instructions
-│   ├── platform-integrations.md       # Partner platform guides
-│   └── troubleshooting.md             # Common issues & solutions
-└── README.md                          # This overview file
+├── 📖 CURSOR_VIBE_GUIDE.md        # How to use Cursor for this project
+├── 📁 workshops/                   # Detailed workshop guides
+├── 📁 templates/                   # Cursor-friendly starter templates
+├── 📁 cursor-prompts/              # Ready-to-use conversation starters
+└── 📁 reference-implementation/    # Complete working example
 ```
 
-## 🏗️ Progressive Workshop Architecture
+## 🎪 **6 Progressive Workshops**
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    AI Core Layer (Workshop 6)              │
-│              Local AI Model (Ollama + WebAI.com)           │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│                Integration Layer (Workshop 5)              │
-│           MCP Protocol + Tool Calling (Toolhouse.ai)       │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│                 Content Layer (Workshop 4)                 │
-│            AI Video Generation (Texel.ai)                  │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│                Business Layer (Workshop 3)                 │
-│        Marketing AI Services (Sindarin.tech Voice AI)      │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│                Memory Layer (Workshop 2)                   │
-│      Knowledge Graph System (Penumbra.ai + Neo4j)         │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│               Foundation Layer (Workshop 1)                │
-│     Project Planning Systems (DeepInvent.ai + GitHub)      │
-└─────────────────────────────────────────────────────────────┘
-```
+Each workshop builds on the previous, creating a complete AI agent system:
 
-## 🎓 Workshop Overview
+### **🏗️ Workshop 1: Foundation** 
+**Presenter**: Jordaaan  
+**Tool**: [DeepInvent.ai](https://deepinvent.ai/) - Patent applications  
+**Chat Starter**: "Help me set up the project foundation with GitHub and DeepInvent.ai integration"
 
-| Workshop | Focus | Platform | Template | Duration |
-|----------|-------|----------|----------|----------|
-| 1 | Project Planning Systems | [DeepInvent.ai](https://deepinvent.ai/) | [Template](templates/workshop1-template/) | 30 min |
-| 2 | Knowledge Graph & Memory | [Penumbra.ai](https://www.getpenumbra.ai/) | [Template](templates/workshop2-template/) | 30 min |
-| 3 | Marketing AI Services | [Sindarin.tech](https://www.sindarin.tech/) | [Template](templates/workshop3-template/) | 30 min |
-| 4 | AI Video Generation | [Texel.ai](https://texel.ai/) | [Template](templates/workshop4-template/) | 30 min |
-| 5 | Tool Calling & MCP | [Toolhouse.ai](https://toolhouse.ai) | [Template](templates/workshop5-template/) | 30 min |
-| 6 | Local AI Deployment | [WebAI.com](https://www.webai.com/) | [Template](templates/workshop6-template/) | 30 min |
+### **🧠 Workshop 2: Memory**
+**Presenter**: Shep  
+**Tool**: [Penumbra.ai](https://www.getpenumbra.ai/) - Thought organization  
+**Chat Starter**: "Add a Neo4j knowledge graph memory system that remembers everything"
 
-## 🎯 Learning Paths
+### **📢 Workshop 3: Marketing**
+**Presenter**: Claire  
+**Tool**: [Sindarin.tech](https://www.sindarin.tech/) - Voice AI  
+**Chat Starter**: "Integrate voice AI for customer communication and marketing automation"
 
-### Beginner Path (65 minutes total)
-- [Beginner Setup Guide](docs/beginner-setup-guide.md) (15 minutes)
-- [Workshop 1 Template](templates/workshop1-template/) (30 minutes)
-- [Cursor AI Tutorial](docs/cursor-ai-tutorial.md) (20 minutes)
+### **🎬 Workshop 4: Video**
+**Presenter**: Rahul  
+**Tool**: [Texel.ai](https://texel.ai/) - Video generation  
+**Chat Starter**: "Add AI video generation for marketing and content creation"
 
-### Intermediate Path (50 minutes total)
-- [Project Overview](project_overview.md) (10 minutes)
-- [Complete Agent](reference-implementation/complete-agent/) (20 minutes)
-- Try workshop templates of interest (20 minutes)
+### **🔧 Workshop 5: Integration**
+**Presenter**: Orlando  
+**Tool**: [Toolhouse.ai](https://toolhouse.ai) - Tool calling  
+**Chat Starter**: "Connect everything with MCP and tool calling capabilities"
 
-### Advanced Path (30 minutes total)
-- [Platform Integrations Guide](docs/platform-integrations.md) (10 minutes)
-- [Complete Agent Implementation](reference-implementation/complete-agent/src/agent.js) (5 minutes)
-- Start building custom features (15 minutes)
+### **🤖 Workshop 6: AI Core**
+**Presenter**: Hossein  
+**Tool**: [WebAI.com](https://www.webai.com/) - Local deployment  
+**Chat Starter**: "Deploy local AI with Ollama for privacy-focused processing"
 
-## 🔗 Platform Partners
+## 💡 **Why Cursor + Vibe Coding?**
 
-| Platform | Purpose | Workshop | Status |
-|----------|---------|----------|--------|
-| [DeepInvent.ai](https://deepinvent.ai/) | Patent Applications | 1 | ✅ Integrated |
-| [Penumbra.ai](https://www.getpenumbra.ai/) | Thought Organization | 2 | ✅ Integrated |
-| [Sindarin.tech](https://www.sindarin.tech/) | Voice AI | 3 | ✅ Integrated |
-| [Texel.ai](https://texel.ai/) | Video Generation | 4 | ✅ Integrated |
-| [Toolhouse.ai](https://toolhouse.ai) | Tool Calling | 5 | ✅ Integrated |
-| [WebAI.com](https://www.webai.com/) | Local AI | 6 | ✅ Integrated |
+### **For Beginners**
+- 🎯 **Focus on ideas**, not syntax
+- 🤖 **AI handles complexity**
+- 💬 **Learn through conversation**
+- 🚀 **Build faster than ever**
 
-## ✅ Final Agent Capabilities
+### **For the Project**
+- 🏗️ **Progressive architecture** - each workshop builds on the last
+- 🔗 **Real integrations** - actual business tools, not tutorials
+- 🎨 **Customizable** - easy to modify through chat
+- 🏠 **Privacy-focused** - runs locally when complete
 
-The complete DWY Tool Calling LLM Agent includes:
-- ✅ **Project Management & Innovation**: AI-enhanced planning with patent application support
-- ✅ **Persistent Memory & Context**: Knowledge graph-based memory system
-- ✅ **Marketing & Customer Engagement**: Voice AI and automated marketing strategies
-- ✅ **Content Creation**: AI video generation and brand management
-- ✅ **Tool Integration**: External API and business system connectivity
-- ✅ **Privacy-Focused Processing**: Local AI deployment without cloud dependencies
+## 🎯 **Learning Outcomes**
 
-## 📚 Documentation
+After completing all workshops, you'll have:
 
-- [Beginner Setup Guide](docs/beginner-setup-guide.md) - Zero to running code in 15 minutes
-- [Cursor AI Tutorial](docs/cursor-ai-tutorial.md) - Master AI-assisted development
-- [Setup Guide](docs/setup-guide.md) - Technical setup instructions
-- [Project Overview](project_overview.md) - Complete project vision and architecture
-- [Platform Integrations](docs/platform-integrations.md) - Partner platform guides
-- [Complete Agent README](reference-implementation/complete-agent/README.md) - Implementation details
-- [Troubleshooting Guide](docs/troubleshooting.md) - Common issues and solutions
-- Workshop-specific READMEs in each template directory
+✅ **A working AI agent** with real business capabilities  
+✅ **Understanding of AI development** through hands-on experience  
+✅ **Practical tool integration skills** with modern platforms  
+✅ **Local AI deployment knowledge** for privacy and control  
+✅ **Confidence in AI-assisted development** using Cursor  
 
-## 🎯 Designed for [Organized AI // Vibe Coders Hackathon](https://lu.ma/Organizedai) Attendees
+## 🛠️ **Technologies You'll Use**
 
-- ✅ Beginner-friendly with complete tutorials
-- ✅ Cursor IDE optimized for AI-assisted development
-- ✅ Demo modes work without API keys
-- ✅ Progressive complexity from simple to advanced
-- ✅ Real platform integrations with cutting-edge AI services
-- ✅ Complete working examples you can run immediately
+- **Cursor IDE** - AI-powered development environment
+- **Neo4j** - Knowledge graph database for memory
+- **Ollama** - Local AI model serving
+- **Node.js/JavaScript** - Primary development language
+- **MCP (Model Context Protocol)** - Tool calling standard
+- **6 Specialized AI Platforms** - One per workshop
 
-## 🚀 Get Started Now
+## 🤝 **Perfect For**
 
-Choose your path:
-- **Workshop Templates**: Learn one concept at a time
-- **Complete Agent**: See everything working together
-- **Documentation**: Understand before building
-- **Platform Guides**: Connect to real AI services
+- 👶 **Coding beginners** who want to build with AI
+- 🎨 **Creative professionals** exploring AI development
+- 💼 **Business people** building AI tools
+- 🎓 **Students** learning modern development
+- 🚀 **Anyone** who prefers conversation over documentation
 
-## 📞 Support
+## 🎊 **Get Started Now**
 
-- **Event Coordinator**: Jordan Hill ([jordan@bluehlighlightedtext.com](mailto:jordan@bluehlighlightedtext.com))
-- **Technical Director**: Jake O'Shea ([jake.oshea@antler.co](mailto:jake.oshea@antler.co))
-- **Emergency Support**: Allie Mullen ([allie.mullen@antler.co](mailto:allie.mullen@antler.co))
+1. **Clone this repository**
+2. **Open in Cursor IDE**
+3. **Press `Cmd+K` and start chatting**
+4. **Follow the [Cursor Vibe Guide](./CURSOR_VIBE_GUIDE.md)**
 
-- **GitHub Issues**: Report bugs or ask questions
-- **Workshop Documentation**: Detailed guides in each directory
-- **Cursor AI**: Use built-in AI assistance for code help
-- **Platform Support**: Each platform has dedicated documentation
-
-## 🤝 Contributing
-
-This project is designed for the Organized AI // Vibe Coders Hackathon. Contributions, improvements, and extensions are welcome!
-
-- Complete workshop templates for Workshops 2-6
-- Add platform integrations and examples
-- Improve documentation and tutorials
-- Share your custom implementations
-- Report issues and suggest improvements
-
-## 📄 License
-
-This project is open source and available under the MIT License.
+**No complex setup. No prerequisites. Just conversation and creativity!**
 
 ---
 
-🚀 **The DWY Tool Calling LLM Agent represents the cutting edge of practical AI implementation, combining business intelligence, creative capabilities, and privacy-focused deployment into a single, powerful system that participants can immediately deploy and customize for their specific business needs.**
-
-**Ready to build the future of AI applications? Choose your starting point above and begin your journey!** 🎉
+*Built for the BHT Labs 🧪 Vibe Code Hackathon - June 21-22, 2025*  
+*Event Materials Due: June 13th to jordan@bluehlighlightedtext.com*
