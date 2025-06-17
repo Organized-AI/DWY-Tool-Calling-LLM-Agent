@@ -1,0 +1,287 @@
+/* 🤖 Organized AI Dev Setup - Golden Color Scheme */
+/* Inspired by the human-AI collaboration logo */
+
+:root {
+  /* Primary Golden Colors */
+  --golden-primary: #FFD700;        /* Pure gold */
+  --golden-secondary: #FFA000;      /* Amber gold */
+  --golden-accent: #FF8F00;         /* Orange gold */
+  --golden-light: #FFF8E1;          /* Light cream */
+  --golden-lighter: #FFFDE7;        /* Lightest cream */
+  
+  /* Background Gradients */
+  --gradient-primary: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
+  --gradient-secondary: linear-gradient(90deg, #FFF8E1 0%, #FFE0B2 100%);
+  --gradient-accent: linear-gradient(135deg, #FFF3C4 0%, #FFCC02 100%);
+  --gradient-subtle: linear-gradient(90deg, #FFFBF0 0%, #FFF3E0 100%);
+  
+  /* Text Colors */
+  --text-dark: #2C1810;             /* Dark brown for contrast on gold */
+  --text-medium: #3E2723;           /* Medium brown */
+  --text-light: #5D4037;            /* Light brown */
+  --text-white: #FFFFFF;            /* Pure white */
+  
+  /* Border and Shadow Colors */
+  --border-gold: #FFB300;           /* Gold border */
+  --border-accent: #FFC107;         /* Accent border */
+  --shadow-gold: rgba(255, 193, 7, 0.3);    /* Golden shadow */
+  --shadow-strong: rgba(255, 193, 7, 0.4);  /* Stronger golden shadow */
+  
+  /* Status Colors */
+  --success-gold: #FFC107;          /* Success state */
+  --warning-gold: #FF8F00;          /* Warning state */
+  --info-gold: #FFE082;             /* Info state */
+  
+  /* Workshop Tier Colors */
+  --tier-foundation: #FFE0B2;       /* 🚀 Foundation Tier */
+  --tier-smart: #FFF176;            /* 💡 Smart Tier */
+  --tier-business: #FFCC02;         /* 🔥 Business Tier */
+  --tier-advanced: #FFC107;         /* ⭐ Advanced Tier */
+  --tier-premium: #FFEB3B;          /* 🥇 Premium Tier */
+  --tier-golden: #FFD700;           /* 🌟 Golden Tier */
+}
+
+/* Base Styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--gradient-subtle);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Logo Styles */
+.logo {
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--shadow-gold);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px var(--shadow-strong);
+}
+
+/* Header Styles */
+.header-golden {
+  background: var(--gradient-primary);
+  color: var(--text-dark);
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+  box-shadow: 0 8px 32px var(--shadow-gold);
+  text-align: center;
+}
+
+/* Card Styles */
+.card {
+  background: var(--gradient-secondary);
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid var(--border-gold);
+  margin: 15px 0;
+  box-shadow: 0 4px 16px var(--shadow-gold);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--shadow-strong);
+}
+
+.card-accent {
+  background: var(--gradient-accent);
+  border: 3px solid var(--border-accent);
+  box-shadow: 0 8px 32px var(--shadow-gold);
+}
+
+.card-primary {
+  background: var(--gradient-primary);
+  color: var(--text-dark);
+  border: 3px solid var(--border-accent);
+  box-shadow: 0 12px 40px var(--shadow-strong);
+}
+
+/* Button Styles */
+.btn-golden {
+  background: var(--gradient-primary);
+  color: var(--text-dark);
+  border: 2px solid var(--border-accent);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px var(--shadow-gold);
+}
+
+.btn-golden:hover {
+  background: var(--gradient-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--shadow-strong);
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+/* Tier Styles */
+.tier-foundation {
+  background: linear-gradient(135deg, var(--tier-foundation) 0%, #FFD54F 100%);
+  border-left: 5px solid var(--border-gold);
+}
+
+.tier-smart {
+  background: linear-gradient(135deg, var(--tier-smart) 0%, #FFF59D 100%);
+  border-left: 5px solid var(--border-accent);
+}
+
+.tier-business {
+  background: linear-gradient(135deg, var(--tier-business) 0%, #FFB300 100%);
+  border-left: 5px solid var(--warning-gold);
+}
+
+.tier-advanced {
+  background: linear-gradient(135deg, var(--tier-advanced) 0%, #FFE082 100%);
+  border-left: 5px solid var(--border-accent);
+}
+
+.tier-premium {
+  background: linear-gradient(135deg, var(--tier-premium) 0%, #FFC107 100%);
+  border-left: 5px solid var(--warning-gold);
+}
+
+.tier-golden {
+  background: var(--gradient-primary);
+  color: var(--text-dark);
+  border-left: 5px solid var(--warning-gold);
+  box-shadow: 0 8px 32px var(--shadow-strong);
+}
+
+/* Code Block Styles */
+.code-block {
+  background: var(--gradient-subtle);
+  padding: 20px;
+  border-radius: 15px;
+  border-left: 5px solid var(--warning-gold);
+  font-family: 'Courier New', Consolas, Monaco, monospace;
+  color: var(--text-medium);
+  overflow-x: auto;
+}
+
+/* Table Styles */
+.table-golden {
+  background: var(--gradient-subtle);
+  border-radius: 15px;
+  border: 2px solid var(--border-gold);
+  overflow: hidden;
+  box-shadow: 0 4px 16px var(--shadow-gold);
+}
+
+.table-golden th {
+  background: var(--gradient-primary);
+  color: var(--text-dark);
+  padding: 15px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-accent);
+}
+
+.table-golden td {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.table-golden tr:hover {
+  background: var(--golden-lighter);
+}
+
+/* Status Indicators */
+.status-ready {
+  color: var(--success-gold);
+  font-weight: 600;
+}
+
+.status-progress {
+  color: var(--warning-gold);
+  font-weight: 600;
+}
+
+.status-planned {
+  color: var(--info-gold);
+  font-weight: 600;
+}
+
+/* Workshop Icons */
+.workshop-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 24px;
+  font-weight: 600;
+  margin-right: 8px;
+  box-shadow: 0 2px 8px var(--shadow-gold);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+    padding: 15px;
+    margin: 10px 0;
+  }
+  
+  .header-golden {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .code-block {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-golden { color: var(--golden-primary); }
+.bg-golden { background: var(--gradient-primary); }
+.shadow-golden { box-shadow: 0 4px 16px var(--shadow-gold); }
+.border-golden { border: 2px solid var(--border-gold); }
+.rounded { border-radius: 10px; }
+.rounded-lg { border-radius: 15px; }
+.p-4 { padding: 20px; }
+.m-4 { margin: 20px; }
+.mb-4 { margin-bottom: 20px; }
+.mt-4 { margin-top: 20px; }

@@ -1,7 +1,7 @@
 {
-  "name": "dwy-agent",
+  "name": "organized-ai-dev-setup",
   "version": "1.0.0",
-  "description": "DWY Tool Calling LLM Agent - Complete hackathon deliverable",
+  "description": "🤖 Organized AI Dev Setup - Complete AI-powered development environment for hackathon participants",
   "main": "src/agent.js",
   "scripts": {
     "start": "node src/agent.js",
@@ -24,11 +24,12 @@
   },
   "keywords": [
     "ai",
-    "tool-calling",
-    "llm",
+    "development-environment",
     "hackathon",
     "mcp",
-    "knowledge-graph"
+    "knowledge-graph",
+    "human-ai-collaboration",
+    "organized-ai"
   ],
   "author": "Organized AI // Vibe Coders Hackathon",
   "license": "MIT",

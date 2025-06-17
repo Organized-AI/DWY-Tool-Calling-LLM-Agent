@@ -1,7 +1,7 @@
 {
-  "name": "dwy-agent-starter",
+  "name": "organized-ai-dev-starter",
   "version": "1.0.0",
-  "description": "DWY Tool Calling LLM Agent - Build your own AI agent step by step",
+  "description": "🤖 Organized AI Dev Setup - Build your own AI development environment step by step",
   "main": "src/agent.js",
   "scripts": {
     "start": "node src/agent.js",
@@ -18,11 +18,12 @@
     "nodemon": "^3.0.1"
   },
   "keywords": [
-    "ai-agent",
-    "tool-calling",
-    "llm",
+    "ai",
+    "development-environment",
     "hackathon",
-    "build-your-own"
+    "build-your-own",
+    "human-ai-collaboration",
+    "organized-ai"
   ],
   "author": "Organized AI // Vibe Coders Hackathon",
   "license": "MIT"

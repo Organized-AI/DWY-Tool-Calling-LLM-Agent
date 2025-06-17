@@ -1,7 +1,7 @@
 {
   "name": "workshop1-project-planning-starter",
   "version": "1.0.0",
-  "description": "Workshop 1: Project Planning Systems - Standalone starter template",
+  "description": "🏗️ Workshop 1: Project Planning Systems - Organized AI Dev Setup starter template",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -22,7 +22,9 @@
     "project-planning",
     "deepinvent",
     "hackathon",
-    "ai"
+    "ai",
+    "organized-ai",
+    "human-ai-collaboration"
   ],
   "author": "Organized AI // Vibe Coders Hackathon",
   "license": "MIT"
