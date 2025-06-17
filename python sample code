@@ -1,0 +1,882 @@
+# 🎬 Texel.AI Integration Guide for DWY Agent
+
+**Workshop 4: AI Video Generation**
+
+## 📁 Directory Structure to Create
+
+```
+backend/src/
+├── services/
+│   ├── video-generation.js       # Main Texel service
+│   └── brand-consistency.js      # Brand management
+├── mcp/tools/
+│   ├── video-tools.js            # MCP video tools
+│   └── brand-tools.js            # MCP brand tools
+├── api/routes/
+│   └── video.js                  # Express routes
+├── python-bridge/
+│   ├── texel_client.py           # Python FastAPI bridge
+│   ├── requirements.txt          # Python dependencies
+│   └── run_texel_service.py      # Service runner
+└── storage/
+    ├── videos/                   # Generated videos
+    ├── thumbnails/               # Video thumbnails
+    └── brand-assets/             # Brand guidelines
+```
+
+## 🐍 Python FastAPI Bridge Integration
+
+### 1. Python FastAPI Service (`python-bridge/texel_client.py`)
+
+```python
+from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import requests
+import asyncio
+import uvicorn
+import os
+from typing import Optional, Dict, Any
+
+app = FastAPI(title="Texel.AI Service Bridge")
+
+# Configure CORS for Node.js backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class VideoGenerationRequest(BaseModel):
+    prompt: str
+    brand_guidelines: Optional[Dict[str, Any]] = None
+    duration: Optional[int] = 30
+    style: Optional[str] = "professional"
+    output_format: Optional[str] = "mp4"
+
+class VideoGenerationResponse(BaseModel):
+    video_id: str
+    status: str
+    video_url: Optional[str] = None
+    thumbnail_url: Optional[str] = None
+    metadata: Dict[str, Any]
+
+class TexelAIClient:
+    def __init__(self):
+        self.api_key = os.getenv('TEXEL_API_KEY')
+        self.base_url = os.getenv('TEXEL_ENDPOINT', 'https://api.texel.ai')
+        
+    async def generate_video(self, request: VideoGenerationRequest) -> VideoGenerationResponse:
+        """Generate video using Texel.AI API"""
+        headers = {
+            'Authorization': f'Bearer {self.api_key}',
+            'Content-Type': 'application/json'
+        }
+        
+        payload = {
+            'prompt': request.prompt,
+            'duration': request.duration,
+            'style': request.style,
+            'output_format': request.output_format,
+            'brand_settings': request.brand_guidelines or {}
+        }
+        
+        try:
+            response = requests.post(
+                f'{self.base_url}/v1/generate',
+                headers=headers,
+                json=payload,
+                timeout=30
+            )
+            response.raise_for_status()
+            
+            result = response.json()
+            return VideoGenerationResponse(
+                video_id=result['id'],
+                status=result['status'],
+                video_url=result.get('video_url'),
+                thumbnail_url=result.get('thumbnail_url'),
+                metadata=result.get('metadata', {})
+            )
+            
+        except requests.exceptions.RequestException as e:
+            raise HTTPException(status_code=500, detail=f"Texel.AI API error: {str(e)}")
+    
+    async def get_video_status(self, video_id: str) -> VideoGenerationResponse:
+        """Check video generation status"""
+        headers = {'Authorization': f'Bearer {self.api_key}'}
+        
+        try:
+            response = requests.get(
+                f'{self.base_url}/v1/videos/{video_id}',
+                headers=headers
+            )
+            response.raise_for_status()
+            
+            result = response.json()
+            return VideoGenerationResponse(
+                video_id=result['id'],
+                status=result['status'],
+                video_url=result.get('video_url'),
+                thumbnail_url=result.get('thumbnail_url'),
+                metadata=result.get('metadata', {})
+            )
+            
+        except requests.exceptions.RequestException as e:
+            raise HTTPException(status_code=500, detail=f"Texel.AI API error: {str(e)}")
+
+# Initialize Texel client
+texel_client = TexelAIClient()
+
+@app.post("/generate-video", response_model=VideoGenerationResponse)
+async def generate_video(request: VideoGenerationRequest):
+    """Generate a video using Texel.AI"""
+    return await texel_client.generate_video(request)
+
+@app.get("/video-status/{video_id}", response_model=VideoGenerationResponse)
+async def get_video_status(video_id: str):
+    """Get video generation status"""
+    return await texel_client.get_video_status(video_id)
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy", "service": "texel-ai-bridge"}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8002)
+```
+
+### 2. Python Requirements (`python-bridge/requirements.txt`)
+
+```txt
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+requests==2.31.0
+python-multipart==0.0.6
+aiofiles==23.2.1
+```
+
+### 3. Service Runner (`python-bridge/run_texel_service.py`)
+
+```python
+#!/usr/bin/env python3
+import subprocess
+import sys
+import os
+
+def install_requirements():
+    """Install Python requirements"""
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install", 
+        "-r", "requirements.txt"
+    ])
+
+def run_service():
+    """Run the Texel FastAPI service"""
+    os.environ.setdefault('TEXEL_API_KEY', 'your-texel-api-key')
+    os.environ.setdefault('TEXEL_ENDPOINT', 'https://api.texel.ai')
+    
+    try:
+        subprocess.run([
+            sys.executable, "-m", "uvicorn", 
+            "texel_client:app", 
+            "--host", "0.0.0.0", 
+            "--port", "8002", 
+            "--reload"
+        ])
+    except KeyboardInterrupt:
+        print("Texel service stopped")
+
+if __name__ == "__main__":
+    install_requirements()
+    run_service()
+```
+
+## 🟢 Node.js Service Integration
+
+### 1. Main Video Service (`services/video-generation.js`)
+
+```javascript
+const axios = require('axios');
+const fs = require('fs').promises;
+const path = require('path');
+
+class VideoGenerationService {
+    constructor() {
+        this.pythonServiceUrl = process.env.TEXEL_PYTHON_SERVICE_URL || 'http://localhost:8002';
+        this.storageDir = process.env.VIDEO_STORAGE_PATH || './storage/videos';
+        this.brandService = require('./brand-consistency');
+        this.videoLibrary = new Map();
+    }
+
+    async initialize() {
+        // Ensure storage directories exist
+        await this.ensureDirectories();
+        
+        // Test Python service connection
+        await this.testPythonService();
+    }
+
+    async ensureDirectories() {
+        const dirs = [
+            this.storageDir,
+            path.join(this.storageDir, 'thumbnails'),
+            path.join(this.storageDir, 'brand-assets')
+        ];
+
+        for (const dir of dirs) {
+            await fs.mkdir(dir, { recursive: true });
+        }
+    }
+
+    async testPythonService() {
+        try {
+            const response = await axios.get(`${this.pythonServiceUrl}/health`);
+            console.log('✅ Texel Python service connected:', response.data);
+        } catch (error) {
+            console.error('❌ Texel Python service not available:', error.message);
+            throw new Error('Texel service initialization failed');
+        }
+    }
+
+    async generateVideo(options) {
+        const {
+            prompt,
+            brandGuidelines = {},
+            duration = 30,
+            style = 'professional',
+            context = {}
+        } = options;
+
+        try {
+            // Apply brand consistency
+            const brandCompliantPrompt = await this.brandService.enhancePrompt(
+                prompt, 
+                brandGuidelines
+            );
+
+            // Call Python service
+            const response = await axios.post(`${this.pythonServiceUrl}/generate-video`, {
+                prompt: brandCompliantPrompt,
+                brand_guidelines: brandGuidelines,
+                duration,
+                style,
+                output_format: 'mp4'
+            });
+
+            const videoData = response.data;
+
+            // Store video metadata
+            const videoRecord = {
+                id: videoData.video_id,
+                prompt: prompt,
+                originalPrompt: prompt,
+                enhancedPrompt: brandCompliantPrompt,
+                brandGuidelines,
+                status: videoData.status,
+                createdAt: new Date().toISOString(),
+                context,
+                metadata: videoData.metadata
+            };
+
+            this.videoLibrary.set(videoData.video_id, videoRecord);
+
+            return {
+                success: true,
+                videoId: videoData.video_id,
+                status: videoData.status,
+                videoUrl: videoData.video_url,
+                thumbnailUrl: videoData.thumbnail_url,
+                metadata: videoRecord
+            };
+
+        } catch (error) {
+            console.error('Video generation error:', error);
+            return {
+                success: false,
+                error: error.message,
+                details: error.response?.data || 'Unknown error'
+            };
+        }
+    }
+
+    async getVideoStatus(videoId) {
+        try {
+            const response = await axios.get(
+                `${this.pythonServiceUrl}/video-status/${videoId}`
+            );
+
+            const videoData = response.data;
+            
+            // Update local record
+            if (this.videoLibrary.has(videoId)) {
+                const record = this.videoLibrary.get(videoId);
+                record.status = videoData.status;
+                record.videoUrl = videoData.video_url;
+                record.thumbnailUrl = videoData.thumbnail_url;
+                record.updatedAt = new Date().toISOString();
+            }
+
+            return {
+                success: true,
+                videoId: videoData.video_id,
+                status: videoData.status,
+                videoUrl: videoData.video_url,
+                thumbnailUrl: videoData.thumbnail_url
+            };
+
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    async createMarketingVideo(campaignData, audience) {
+        const prompt = `Create a professional marketing video for ${campaignData.product} 
+                       targeting ${audience.demographics}. 
+                       Key message: ${campaignData.keyMessage}. 
+                       Call to action: ${campaignData.callToAction}`;
+
+        return await this.generateVideo({
+            prompt,
+            brandGuidelines: campaignData.brandGuidelines,
+            duration: campaignData.duration || 60,
+            style: 'marketing',
+            context: {
+                type: 'marketing',
+                campaign: campaignData.name,
+                audience: audience.name
+            }
+        });
+    }
+
+    async createExplanationVideo(content, audience = 'general') {
+        const prompt = `Create an educational video explaining: ${content}. 
+                       Make it engaging and easy to understand for ${audience} audience.`;
+
+        return await this.generateVideo({
+            prompt,
+            duration: 120,
+            style: 'educational',
+            context: {
+                type: 'explanation',
+                topic: content,
+                audience
+            }
+        });
+    }
+
+    getVideoLibrary() {
+        return Array.from(this.videoLibrary.values());
+    }
+}
+
+module.exports = new VideoGenerationService();
+```
+
+### 2. Brand Consistency Service (`services/brand-consistency.js`)
+
+```javascript
+class BrandConsistencyService {
+    constructor() {
+        this.brandGuidelines = new Map();
+        this.defaultBrand = {
+            colors: {
+                primary: '#667eea',
+                secondary: '#764ba2',
+                accent: '#f093fb'
+            },
+            fonts: {
+                primary: 'Inter',
+                secondary: 'Roboto'
+            },
+            tone: 'professional',
+            style: 'modern',
+            logo: null
+        };
+    }
+
+    async setBrandGuidelines(guidelines) {
+        this.brandGuidelines.set('default', {
+            ...this.defaultBrand,
+            ...guidelines
+        });
+    }
+
+    async enhancePrompt(prompt, brandGuidelines = {}) {
+        const brand = {
+            ...this.defaultBrand,
+            ...brandGuidelines
+        };
+
+        const brandEnhancement = `
+Style: ${brand.style}, ${brand.tone} tone. 
+Colors: Primary ${brand.colors.primary}, Secondary ${brand.colors.secondary}. 
+Typography: ${brand.fonts.primary} font family.
+Ensure consistent branding throughout.
+        `.trim();
+
+        return `${prompt}\n\nBrand Guidelines: ${brandEnhancement}`;
+    }
+
+    async validateVideoCompliance(videoData) {
+        // In a real implementation, this would analyze the video
+        // For now, return a mock compliance check
+        return {
+            compliant: true,
+            issues: [],
+            suggestions: [],
+            score: 95
+        };
+    }
+}
+
+module.exports = new BrandConsistencyService();
+```
+
+## 🔧 MCP Tools Integration
+
+### 1. Video MCP Tools (`mcp/tools/video-tools.js`)
+
+```javascript
+const videoService = require('../../services/video-generation');
+
+const videoTools = {
+    generate_marketing_video: {
+        name: 'generate_marketing_video',
+        description: 'Generate a marketing video using Texel.AI',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                product: { type: 'string', description: 'Product or service being marketed' },
+                keyMessage: { type: 'string', description: 'Main marketing message' },
+                callToAction: { type: 'string', description: 'Desired call to action' },
+                targetAudience: { type: 'string', description: 'Target audience description' },
+                duration: { type: 'number', description: 'Video duration in seconds', default: 60 },
+                brandGuidelines: {
+                    type: 'object',
+                    description: 'Brand guidelines for consistency',
+                    properties: {
+                        colors: { type: 'object' },
+                        fonts: { type: 'object' },
+                        tone: { type: 'string' },
+                        style: { type: 'string' }
+                    }
+                }
+            },
+            required: ['product', 'keyMessage', 'callToAction', 'targetAudience']
+        },
+        handler: async (params) => {
+            try {
+                const campaignData = {
+                    product: params.product,
+                    keyMessage: params.keyMessage,
+                    callToAction: params.callToAction,
+                    duration: params.duration,
+                    brandGuidelines: params.brandGuidelines || {}
+                };
+
+                const audience = {
+                    demographics: params.targetAudience,
+                    name: 'target_audience'
+                };
+
+                const result = await videoService.createMarketingVideo(campaignData, audience);
+
+                return {
+                    success: result.success,
+                    videoId: result.videoId,
+                    status: result.status,
+                    message: result.success 
+                        ? `Marketing video generation started. Video ID: ${result.videoId}`
+                        : `Failed to generate video: ${result.error}`,
+                    videoUrl: result.videoUrl,
+                    thumbnailUrl: result.thumbnailUrl
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+    },
+
+    generate_explanation_video: {
+        name: 'generate_explanation_video',
+        description: 'Generate an educational/explanation video',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                content: { type: 'string', description: 'Content to explain in the video' },
+                audience: { type: 'string', description: 'Target audience level', default: 'general' },
+                duration: { type: 'number', description: 'Video duration in seconds', default: 120 }
+            },
+            required: ['content']
+        },
+        handler: async (params) => {
+            try {
+                const result = await videoService.createExplanationVideo(
+                    params.content,
+                    params.audience
+                );
+
+                return {
+                    success: result.success,
+                    videoId: result.videoId,
+                    status: result.status,
+                    message: result.success 
+                        ? `Explanation video generation started. Video ID: ${result.videoId}`
+                        : `Failed to generate video: ${result.error}`,
+                    videoUrl: result.videoUrl,
+                    thumbnailUrl: result.thumbnailUrl
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+    },
+
+    check_video_status: {
+        name: 'check_video_status',
+        description: 'Check the status of a video generation request',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                videoId: { type: 'string', description: 'Video ID to check status for' }
+            },
+            required: ['videoId']
+        },
+        handler: async (params) => {
+            try {
+                const result = await videoService.getVideoStatus(params.videoId);
+                
+                return {
+                    success: result.success,
+                    videoId: params.videoId,
+                    status: result.status,
+                    videoUrl: result.videoUrl,
+                    thumbnailUrl: result.thumbnailUrl,
+                    message: `Video status: ${result.status}`
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+    },
+
+    list_video_library: {
+        name: 'list_video_library',
+        description: 'List all generated videos in the library',
+        inputSchema: {
+            type: 'object',
+            properties: {}
+        },
+        handler: async () => {
+            try {
+                const library = videoService.getVideoLibrary();
+                
+                return {
+                    success: true,
+                    count: library.length,
+                    videos: library.map(video => ({
+                        id: video.id,
+                        prompt: video.prompt,
+                        status: video.status,
+                        createdAt: video.createdAt,
+                        context: video.context
+                    })),
+                    message: `Found ${library.length} videos in library`
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+    }
+};
+
+module.exports = videoTools;
+```
+
+### 2. MCP Server Registration
+
+Add to your main MCP server (`mcp/server.js`):
+
+```javascript
+const videoTools = require('./tools/video-tools');
+
+// Register video tools
+Object.values(videoTools).forEach(tool => {
+    server.registerTool(tool);
+});
+
+console.log('✅ Texel.AI video tools registered');
+```
+
+## 🌐 Express API Routes
+
+### Video API Routes (`api/routes/video.js`)
+
+```javascript
+const express = require('express');
+const router = express.Router();
+const videoService = require('../../services/video-generation');
+
+// Generate marketing video
+router.post('/marketing', async (req, res) => {
+    try {
+        const { product, keyMessage, callToAction, targetAudience, brandGuidelines } = req.body;
+        
+        const campaignData = {
+            product,
+            keyMessage,
+            callToAction,
+            brandGuidelines: brandGuidelines || {}
+        };
+
+        const audience = {
+            demographics: targetAudience,
+            name: 'api_audience'
+        };
+
+        const result = await videoService.createMarketingVideo(campaignData, audience);
+        
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+// Generate explanation video
+router.post('/explanation', async (req, res) => {
+    try {
+        const { content, audience = 'general' } = req.body;
+        
+        const result = await videoService.createExplanationVideo(content, audience);
+        
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+// Check video status
+router.get('/status/:videoId', async (req, res) => {
+    try {
+        const { videoId } = req.params;
+        const result = await videoService.getVideoStatus(videoId);
+        
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+// Get video library
+router.get('/library', async (req, res) => {
+    try {
+        const library = videoService.getVideoLibrary();
+        
+        res.json({
+            success: true,
+            count: library.length,
+            videos: library
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+module.exports = router;
+```
+
+## 🐳 Docker Integration
+
+### Update `docker-compose.yml`
+
+```yaml
+services:
+  # Add Texel Python service
+  texel-service:
+    build:
+      context: ./backend/python-bridge
+      dockerfile: Dockerfile
+    container_name: dwy-texel-service
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    environment:
+      - TEXEL_API_KEY=${TEXEL_API_KEY}
+      - TEXEL_ENDPOINT=${TEXEL_ENDPOINT}
+    volumes:
+      - ./storage/videos:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8002/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Update backend to depend on Texel service
+  backend:
+    # ... existing configuration
+    environment:
+      # ... existing env vars
+      - TEXEL_PYTHON_SERVICE_URL=http://texel-service:8002
+    depends_on:
+      texel-service:
+        condition: service_healthy
+```
+
+### Python Service Dockerfile (`python-bridge/Dockerfile`)
+
+```dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create storage directory
+RUN mkdir -p /app/storage
+
+# Expose port
+EXPOSE 8002
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8002/health || exit 1
+
+# Run the application
+CMD ["python", "-m", "uvicorn", "texel_client:app", "--host", "0.0.0.0", "--port", "8002"]
+```
+
+## 🔧 Environment Configuration
+
+### Update `.env.example`
+
+```env
+# Texel.AI Configuration
+TEXEL_API_KEY=your_texel_api_key_here
+TEXEL_ENDPOINT=https://api.texel.ai
+TEXEL_PYTHON_SERVICE_URL=http://localhost:8002
+
+# Video Configuration
+VIDEO_STORAGE_PATH=./storage/videos
+MAX_VIDEO_DURATION=300
+VIDEO_QUALITY=1080p
+ENABLE_VIDEO_GENERATION=true
+```
+
+## 🧪 Testing Your Integration
+
+### 1. Test Python Service
+
+```bash
+cd backend/python-bridge
+python run_texel_service.py
+```
+
+### 2. Test Node.js Integration
+
+```javascript
+// Test script (test-texel.js)
+const videoService = require('./backend/src/services/video-generation');
+
+async function testTexelIntegration() {
+    try {
+        await videoService.initialize();
+        
+        const result = await videoService.generateVideo({
+            prompt: "Create a professional introduction video for our AI hackathon",
+            duration: 30,
+            style: "professional"
+        });
+        
+        console.log('Video generation result:', result);
+    } catch (error) {
+        console.error('Test failed:', error);
+    }
+}
+
+testTexelIntegration();
+```
+
+### 3. Test MCP Tools
+
+Use the MCP inspector: `https://github.com/modelcontextprotocol/inspector`
+
+```json
+{
+    "method": "tools/call",
+    "params": {
+        "name": "generate_marketing_video",
+        "arguments": {
+            "product": "AI Video Generator",
+            "keyMessage": "Create professional videos with AI",
+            "callToAction": "Try it free today",
+            "targetAudience": "Content creators and marketers"
+        }
+    }
+}
+```
+
+## 🚀 Quick Start Commands
+
+```bash
+# 1. Set up Python service
+cd backend/python-bridge
+pip install -r requirements.txt
+python run_texel_service.py &
+
+# 2. Start the full stack
+docker-compose up -d
+
+# 3. Test the integration
+curl -X POST http://localhost:8000/api/video/marketing \
+  -H "Content-Type: application/json" \
+  -d '{
+    "product": "Test Product",
+    "keyMessage": "Revolutionary AI tool",
+    "callToAction": "Sign up now",
+    "targetAudience": "Tech enthusiasts"
+  }'
+```
+
+This integration gives you a complete Texel.AI service that works seamlessly with the DWY agent architecture while leveraging your existing FastAPI expertise! 🎬✨
