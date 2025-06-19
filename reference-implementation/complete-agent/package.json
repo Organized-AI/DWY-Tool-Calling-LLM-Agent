@@ -1,11 +1,13 @@
 {
   "name": "organized-ai-dev-setup",
-  "version": "1.0.0",
-  "description": "🤖 Organized AI Dev Setup - Complete AI-powered development environment for hackathon participants",
-  "main": "src/agent.js",
+  "version": "2.0.0",
+  "description": "🤖 Organized AI Dev Setup - Complete AI-powered development environment with Clean Architecture",
+  "main": "src/main.js",
   "scripts": {
-    "start": "node src/agent.js",
-    "dev": "nodemon src/agent.js",
+    "start": "node src/main.js",
+    "dev": "nodemon src/main.js",
+    "start:legacy": "node src/agent.js",
+    "dev:legacy": "nodemon src/agent.js",
     "setup": "node scripts/setup.js",
     "test": "node scripts/test.js"
   },
@@ -29,7 +31,8 @@
     "mcp",
     "knowledge-graph",
     "human-ai-collaboration",
-    "organized-ai"
+    "organized-ai",
+    "clean-architecture"
   ],
   "author": "Organized AI // Vibe Coders Hackathon",
   "license": "MIT",

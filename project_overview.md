@@ -1,4 +1,4 @@
-# 🤖 Organized AI Dev Setup - Complete Project Overview
+# Organized AI Dev Setup - Complete Project Overview
 **Organized AI // Vibe Coders Hackathon**
 
 <div align="center">
@@ -7,7 +7,7 @@
 
 ## 🎯 **Project Vision**
 
-The **🤖 Organized AI Dev Setup** is the comprehensive development toolkit for the Organized AI // Vibe Coders Hackathon. Built through six progressive workshops, participants create a complete AI-powered development environment capable of tool calling, persistent memory, content generation, and local deployment.
+The **Organized AI Dev Setup** is the comprehensive development toolkit for the Organized AI // Vibe Coders Hackathon. Built through six progressive workshops, participants create a complete AI-powered development environment capable of tool calling, persistent memory, content generation, and local deployment.
 
 <div style="background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%); color: #2C1810; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 8px 32px rgba(255, 193, 7, 0.2);">
   <strong>🚀 Event Details</strong><br>
@@ -26,7 +26,7 @@ The **🤖 Organized AI Dev Setup** is the comprehensive development toolkit for
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│             🤖 AI Core Layer (Workshop 6)                   │
+│             AI Core Layer (Workshop 6)                   │
 │          Local AI Model (Ollama + WebAI.com)               │
 │                    🌟 GOLDEN TIER 🌟                        │
 └─────────────────────────────────────────────────────────────┘
@@ -379,7 +379,7 @@ Provides the core AI processing engine that powers the entire development enviro
 <div style="background: linear-gradient(135deg, #FFFBF0 0%, #FFF3E0 100%); padding: 20px; border-radius: 15px; border-left: 5px solid #FF8F00; font-family: 'Courier New', monospace;">
 
 ```
-🤖 organized-ai-dev-setup/
+organized-ai-dev-setup/
 ├── workshops/                                 # Workshop documentation
 │   ├── workshop1_project_planning_systems.md
 │   ├── workshop2_knowledge_graph_implementation.md
@@ -538,7 +538,7 @@ User Input
 
 <div align="center" style="background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%); color: #2C1810; padding: 30px; border-radius: 20px; margin: 30px 0; box-shadow: 0 12px 40px rgba(255, 193, 7, 0.3);">
 
-**🚀 The 🤖 Organized AI Dev Setup represents the cutting edge of practical AI implementation, combining human-AI collaboration, business intelligence, creative capabilities, and privacy-focused deployment into a single, powerful development environment that participants can immediately deploy and customize for their specific needs.**
+**🚀 The Organized AI Dev Setup represents the cutting edge of practical AI implementation, combining human-AI collaboration, business intelligence, creative capabilities, and privacy-focused deployment into a single, powerful development environment that participants can immediately deploy and customize for their specific needs.**
 
 <img src="assets/logo.png" alt="Human-AI Collaboration" width="100" height="100" style="border-radius: 15px; margin-top: 20px; box-shadow: 0 4px 16px rgba(255, 193, 7, 0.4);">
 
