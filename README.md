@@ -14,7 +14,7 @@
 
 ## 🎯 **Project Overview**
 
-The **🤖 Organized AI Dev Setup** is the comprehensive development toolkit for the Organized AI // Vibe Coders Hackathon. Built through six progressive workshops, participants create a complete AI-powered development environment capable of tool calling, persistent memory, content generation, and local deployment.
+The **🤖 Organized AI Dev Setup** is the comprehensive development toolkit for the Organized AI // Vibe Coders Hackathon. Built through six progressive workshops, participants create a complete AI-powered development environment capable of tool calling, persistent memory, content generation, and flexible deployment options.
 
 <div style="background: linear-gradient(90deg, #FFF3C4 0%, #FFE082 100%); color: #3E2723; padding: 15px; border-radius: 10px; border-left: 5px solid #FF8F00;">
   <strong>🚀 Event Details</strong><br>
@@ -83,7 +83,7 @@ organized-ai-dev-setup/
 │   ├── workshop3_marketing_ai_services.md
 │   ├── workshop4_ai_video_generation.md
 │   ├── workshop5_tool_calling_mcp_integration.md
-│   └── workshop6_local_ai_deployment.md
+│   └── workshop6_complete_ai_deployment.md
 ├── 📁 reference-implementation/               # Working code examples
 │   ├── 📁 complete-agent/                   # ✨ Full integrated AI dev setup
 │   │   ├── src/agent.js                     # Main orchestrator
@@ -121,8 +121,8 @@ organized-ai-dev-setup/
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│             🤖 AI Core Layer (Workshop 6)                   │
-│          Local AI Model (Ollama + WebAI.com)               │
+│             🚀 Deployment Layer (Workshop 6)                │
+│    Local AI (Ollama) + Cloud Deployment (Docker/Cloud)     │
 │                    🌟 GOLDEN TIER 🌟                        │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
@@ -158,14 +158,14 @@ organized-ai-dev-setup/
 
 <div style="overflow-x: auto; background: linear-gradient(90deg, #FFFDE7 0%, #FFF9C4 100%); padding: 20px; border-radius: 15px; border: 2px solid #FFC107;">
 
-| Workshop | Focus | Platform | Template | Duration | Tier |
-|----------|-------|----------|----------|----------|------|
-| 1 | 🏗️ Project Planning Systems | [DeepInvent.ai](https://deepinvent.ai/) | ✅ Ready | 30 min | 🚀 Foundation |
-| 2 | 🧠 Knowledge Graph Implementation | [Penumbra.ai](https://www.getpenumbra.ai/) | 🚧 In Progress | 30 min | 💡 Smart |
-| 3 | 💼 Marketing AI Services | [Sindarin.tech](https://www.sindarin.tech/) | 📋 Planned | 30 min | 🔥 Business |
-| 4 | 🎬 AI Video Generation | [Texel.ai](https://texel.ai/) | 📋 Planned | 30 min | ⭐ Advanced |
-| 5 | 🔧 Tool Calling & MCP Integration | [Toolhouse.ai](https://toolhouse.ai) | 📋 Planned | 30 min | 🥇 Premium |
-| 6 | 🤖 Local AI Deployment | [WebAI.com](https://www.webai.com/) | 📋 Planned | 30 min | 🌟 Golden |
+| Workshop | Focus | Platform | Presenter | Template | Duration | Tier |
+|----------|-------|----------|-----------|----------|----------|------|
+| 1 | 🏗️ Project Planning Systems | [DeepInvent.ai](https://deepinvent.ai/) | Jordaaan | ✅ Ready | 30 min | 🚀 Foundation |
+| 2 | 🧠 Knowledge Graph Implementation | [Penumbra.ai](https://www.getpenumbra.ai/) | Shep | 🚧 In Progress | 30 min | 💡 Smart |
+| 3 | 💼 Marketing AI Services | [Sindarin.tech](https://www.sindarin.tech/) | Claire | 📋 Planned | 30 min | 🔥 Business |
+| 4 | 🎬 AI Video Generation | [Texel.ai](https://texel.ai/) | Rahul | 📋 Planned | 30 min | ⭐ Advanced |
+| 5 | 🔧 Tool Calling & MCP Integration | [Toolhouse.ai](https://toolhouse.ai) | Orlando | 📋 Planned | 30 min | 🥇 Premium |
+| 6 | 🚀 Complete AI Deployment (Local & Cloud) | Ollama + Cloud Platforms | Kliment | 📋 Planned | 30 min | 🌟 Golden |
 
 </div>
 
@@ -259,7 +259,7 @@ organized-ai-dev-setup/
 | 🔥 [Sindarin.tech](https://www.sindarin.tech/) | Voice AI & Customer Communication | 3 | 📋 Ready for Integration | Business Layer |
 | ⭐ [Texel.ai](https://texel.ai/) | Video Generation & Content Creation | 4 | 📋 Ready for Integration | Content Layer |
 | 🥇 [Toolhouse.ai](https://toolhouse.ai) | Tool Calling & MCP Protocol | 5 | 📋 Ready for Integration | Integration Layer |
-| 🌟 [WebAI.com](https://www.webai.com/) | Local AI Deployment Resources | 6 | 📋 Ready for Integration | AI Core |
+| 🌟 Ollama + Cloud Platforms | Local & Cloud AI Deployment | 6 | 📋 Ready for Integration | AI Core |
 
 </div>
 
@@ -276,7 +276,7 @@ The complete **Organized AI Dev Setup** includes:
 - ✅ **💼 Marketing & Customer Engagement**: Voice AI and automated marketing strategies
 - ✅ **🎬 Content Creation**: AI video generation and brand management
 - ✅ **🔧 Tool Integration**: External API and business system connectivity
-- ✅ **🤖 Privacy-Focused Processing**: Local AI deployment without cloud dependencies
+- ✅ **🚀 Flexible Deployment Options**: Local privacy + cloud scalability
 
 </div>
 
@@ -386,7 +386,6 @@ This project is open source and available under the MIT License.
 
 <div align="center" style="background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%); color: #2C1810; padding: 30px; border-radius: 20px; margin: 30px 0; box-shadow: 0 12px 40px rgba(255, 193, 7, 0.3);">
 
-**🚀 The Organized AI Dev Setup represents the cutting edge of practical AI implementation, combining human-AI collaboration, business intelligence, creative capabilities, and privacy-focused deployment into a single, powerful development environment that participants can immediately deploy and customize for their specific needs.**
 
 **Ready to build the future of AI-powered development? Choose your starting point above and begin your journey! 🎉**
 
