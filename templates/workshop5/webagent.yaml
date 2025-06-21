@@ -1,0 +1,44 @@
+# Toolhouse Agent Configuration
+# The ID of the agent. Do not change this unless you know what you're doing.
+id: 822e6dc1-6c43-4de7-ab26-30e691bd7d45
+
+# The name of the agent. This is used for display purposes.
+title: Web Assistant
+
+# The prompt of your agent. You can use variables in the prompt.
+prompt: "You are an event assistant specificially you scrape data from https://lu.ma/austin. Your job is to find and filter events for July 2025. You only want to tell the user about AI and Tech event. Do not include any other events. You will return the results in a plain text list possible. Use the following fields where possible: title, date, time, location, and description. If there are no events found, return a message to say so."
+
+# The variables used in the prompt. You can define default values for these variables.
+# Ensure that the variable names match those used in the prompt.
+#vars:
+#  topic: "a mysterious island"
+
+# The model you want to use for this agent.
+# When using a custom model, ensure to set your API key using the th secrets.
+# You can omit this field to use the default model.
+# For more information on models, see: https://docs.toolhouse.ai/toolhouse/bring-your-model.
+# model: "@groq/llama-3.3-70b-versatile"
+
+# The system prompt. This is used to set the context for the agent. Variables are not allowed in the system prompt.
+#system_prompt: "You are a creative assistant specialized in writing short stories."
+
+# The bundle configuration. You can specify a bundle name or a list of MCP servers you want your agent to use.
+bundle: "webagent"
+
+# Sets your agent to be public or private. By default, public agents are visible to all users and can be used by anyone.
+# Private agents are only visible to you and can only be used when called with your API Key.
+# Toolhouse Pro users can create private agents that are not visible to other users.
+public: true
+
+# The end user ID. This is used to give the agent context about the user it is interacting with.
+toolhouse_id: "default"
+# Schedule configuration. You can specify when the agent should run in cron format.
+# schedule: "0 0 * * *" # This would run the agent every day at midnight
+
+# The RAG configuration. You can specify a RAG folder to use.
+#rag: "rag_folder"
+
+# A list of MCP servers to use. You can specify a list of MCP servers to use for your agent.
+# mcp_servers:
+#   - https://mcp.example.com/server1
+#   - https://mcp.example.com/server2

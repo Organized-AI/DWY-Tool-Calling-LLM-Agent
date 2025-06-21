@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "mcp-server-toolhouse": {
+      "command": "uvx",
+      "args": ["mcp_server_toolhouse"],
+      "env": {
+        "TOOLHOUSE_API_KEY": "YOUR_API_KEY_HERE",
+        "TOOLHOUSE_BUNDLE": "webagent"
+      }
+    }
+  }
+}
