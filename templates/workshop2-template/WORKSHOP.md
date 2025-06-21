@@ -20,7 +20,7 @@ A complete RAG system with three modes:
 ├─────────────────────────────────────────────────────────────┤
 │  Frontend:  Next.js 15 + React Flow (visualization)         │
 │  Backend:   Supabase (PostgreSQL with pgvector)             │
-│  AI:        OpenAI GPT-4 + Embeddings                       │
+│  AI:        OpenAI GPT-4o-mini + Embeddings                       │
 │  Context:   Penumbra.ai (universal context layer)           │
 └─────────────────────────────────────────────────────────────┘
 ```

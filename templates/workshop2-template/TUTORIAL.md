@@ -23,16 +23,16 @@ A knowledge graph is a way to store information as a network of connected entiti
 
 Example:
 ```
-[OpenAI] --created--> [GPT-4]
-[GPT-4] --type--> [Language Model]
-[GPT-4] --competes-with--> [Claude]
+[OpenAI] --created--> [GPT-4o-mini]
+[GPT-4o-mini] --type--> [Language Model]
+[GPT-4o-mini] --competes-with--> [Claude]
 ```
 
 ### Why Knowledge Graphs for AI?
 
 Traditional RAG (Retrieval-Augmented Generation) uses vector similarity to find relevant documents. But it misses relationships! Knowledge graphs add:
 
-1. **Explicit relationships**: "Who created GPT-4?" → Follow the edge!
+1. **Explicit relationships**: "Who created GPT-4o-mini?" → Follow the edge!
 2. **Multi-hop reasoning**: "What models compete with products made by OpenAI?"
 3. **Structured knowledge**: No more hoping the LLM extracts the right facts
 

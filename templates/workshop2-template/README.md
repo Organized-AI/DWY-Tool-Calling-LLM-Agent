@@ -59,7 +59,7 @@ This starter kit uses Supabase's SQL schema for the knowledge graph. The schema 
 
 ### Core Features
 - **Modern Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS v4
-- **AI Integration**: OpenAI GPT-4, real embeddings, streaming responses
+- **AI Integration**: OpenAI GPT-4o-mini, real embeddings, streaming responses
 - **Knowledge Graph**: Built on PostgreSQL/Supabase (no graph DB needed!)
 - **Interactive UI**: Real-time graph visualization, chat interface, mode switching
 - **Production Ready**: Error handling, TypeScript, proper architecture
