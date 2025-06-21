@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWY Tool-Calling LLM Agent Hackathon Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .setup-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .setup-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .setup-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .setup-card h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .command-box {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .copy-btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .requirements {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .workshop-info {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .workshop-info h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .repo-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 1rem;
+            transition: background 0.3s ease;
+        }
+        
+        .repo-link:hover {
+            background: #5a6fd8;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-checking { background: #fbbf24; }
+        .status-success { background: #10b981; }
+        .status-error { background: #ef4444; }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 DWY Tool-Calling LLM Agent</h1>
+            <p class="subtitle">Hackathon Environment Setup - Get Ready to Build!</p>
+        </header>
+        
+        <div class="setup-cards">
+            <!-- macOS Setup Card -->
+            <div class="setup-card">
+                <h2>🍎 macOS Setup</h2>
+                <div class="requirements">
+                    <strong>Requirements:</strong>
+                    <ul>
+                        <li>macOS 10.15+ (Big Sur recommended)</li>
+                        <li>Homebrew package manager</li>
+                        <li>Terminal access</li>
+                    </ul>
+                </div>
+                <div class="command-box">
+                    <button class="copy-btn" onclick="copyToClipboard('mac-command')">Copy</button>
+                    <code id="mac-command">curl -fsSL https://raw.githubusercontent.com/Organized-AI/DWY-Tool-Calling-LLM-Agent/main/setup/scripts/hackathon-setup-mac.sh | bash</code>
+                </div>
+                <p><strong>What this installs:</strong> Node.js, Python, Git, VS Code extensions, Claude Desktop, and all project dependencies.</p>
+            </div>
+            
+            <!-- Windows Setup Card -->
+            <div class="setup-card">
+                <h2>🪟 Windows Setup</h2>
+                <div class="requirements">
+                    <strong>Requirements:</strong>
+                    <ul>
+                        <li>Windows 10/11</li>
+                        <li>PowerShell 5.1+</li>
+                        <li>Administrator privileges</li>
+                    </ul>
+                </div>
+                <div class="command-box">
+                    <button class="copy-btn" onclick="copyToClipboard('windows-command')">Copy</button>
+                    <code id="windows-command">irm https://raw.githubusercontent.com/Organized-AI/DWY-Tool-Calling-LLM-Agent/main/setup/scripts/hackathon-setup-windows.ps1 | iex</code>
+                </div>
+                <p><strong>What this installs:</strong> Chocolatey, Node.js, Python, Git, VS Code, and project setup via Windows Package Manager.</p>
+            </div>
+            
+            <!-- Linux Setup Card -->
+            <div class="setup-card">
+                <h2>🐧 Linux Setup</h2>
+                <div class="requirements">
+                    <strong>Requirements:</strong>
+                    <ul>
+                        <li>Ubuntu 20.04+ / Debian 10+</li>
+                        <li>Sudo privileges</li>
+                        <li>curl installed</li>
+                    </ul>
+                </div>
+                <div class="command-box">
+                    <button class="copy-btn" onclick="copyToClipboard('linux-command')">Copy</button>
+                    <code id="linux-command">curl -fsSL https://raw.githubusercontent.com/Organized-AI/DWY-Tool-Calling-LLM-Agent/main/setup/scripts/hackathon-setup-linux.sh | bash</code>
+                </div>
+                <p><strong>What this installs:</strong> Node.js via NodeSource, Python 3.9+, Git, VS Code via apt, and all project dependencies.</p>
+            </div>
+        </div>
+        
+        <div class="workshop-info">
+            <h2>🎯 After Setup Completion</h2>
+            <p>Once your environment is ready, head to <strong>Workshop 1</strong> to begin building your DWY Tool-Calling LLM Agent!</p>
+            <a href="https://github.com/Organized-AI/DWY-Tool-Calling-LLM-Agent" class="repo-link" target="_blank">
+                📁 Open Repository
+            </a>
+            <a href="https://github.com/Organized-AI/DWY-Tool-Calling-LLM-Agent/blob/main/workshops/workshop1_project_planning_systems.md" class="repo-link" target="_blank">
+                🚀 Start Workshop 1
+            </a>
+        </div>
+        
+        <footer>
+            <p>Need help? Join our <a href="#" style="color: #fbbf24;">Discord community</a> or check the <a href="https://github.com/Organized-AI/DWY-Tool-Calling-LLM-Agent/issues" style="color: #fbbf24;">GitHub issues</a></p>
+        </footer>
+    </div>
+    
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                // Show feedback
+                const btn = element.parentNode.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#667eea';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+        
+        // Add some interactive feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.setup-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Add subtle animation feedback
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
