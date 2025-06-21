@@ -4,4 +4,4 @@
 
 ## 🎯 **What You'll Build**
 
-You're going to build an AI agent which can do tasks for you
+You're going to build an AI agent which can do tasks for you!
