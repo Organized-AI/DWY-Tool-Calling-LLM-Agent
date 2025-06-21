@@ -1,3 +1,4 @@
+
 """
 Texel AI API Python SDK
 
@@ -32,7 +33,7 @@ import requests
 class TexelAPIError(Exception):
     """Custom exception for Texel API errors"""
 
-    def __init__(self, message: str, status_code: int | None = None):
+    def __init__(self, message: str, status_code: None):
         self.message = message
         self.status_code = status_code
         super().__init__(self.message)
@@ -64,7 +65,7 @@ class TexelAPI:
             }
         )
 
-    def _image_to_base64(self, image_path: str | Path) -> str:
+    def _image_to_base64(self, image_path: Path) -> str:
         """Convert an image file to base64 string"""
         try:
             with open(image_path, "rb") as f:
@@ -108,8 +109,8 @@ class TexelAPI:
         num_images: int = 1,
         steps: int = 20,
         cfg_scale: float = 7.0,
-        seed: int | None = None,
-        init_image_path: str | Path | None = None,
+        seed: int = None,
+        init_image_path: str = None,
     ) -> dict[str, Any]:
         """
         Generate images using text prompts
@@ -204,8 +205,8 @@ class TexelAPI:
         frames: int = 81,
         steps: int = 30,
         cfg_scale: float = 3.0,
-        seed: int | None = None,
-        init_image_path: str | Path | None = None,
+        seed: int = None,
+        init_image_path: str = None,
     ) -> dict[str, Any]:
         """
         Generate videos using text prompts (and optionally an initial image)
@@ -341,7 +342,7 @@ class TexelAPI:
         }
 
     def generate_video_from_image(
-        self, prompt: str, image_path: str | Path, model: str = "framepack", **kwargs
+        self, prompt: str, image_path: str, model: str = "framepack", **kwargs
     ) -> dict[str, Any]:
         """
         Generate a video from an initial image
@@ -433,7 +434,7 @@ class TexelAPI:
             "failed": True,
         }
 
-    def download_video(self, video_url: str, save_path: str | Path) -> None:
+    def download_video(self, video_url: str, save_path: str) -> None:
         """
         Download a video from a signed URL
 
@@ -452,7 +453,7 @@ class TexelAPI:
         except Exception as e:
             raise TexelAPIError(f"Error downloading video: {e}")
 
-    def download_image(self, image_base64: str, save_path: str | Path) -> None:
+    def download_image(self, image_base64: str, save_path: str) -> None:
         """
         Save a base64 encoded image to a file
 
@@ -485,3 +486,4 @@ def generate_video_from_image(api_key: str, prompt: str, image_path: str, **kwar
     """Quick function to generate a video from an image"""
     client = TexelAPI(api_key)
     return client.generate_video_from_image(prompt, image_path, **kwargs)
+
