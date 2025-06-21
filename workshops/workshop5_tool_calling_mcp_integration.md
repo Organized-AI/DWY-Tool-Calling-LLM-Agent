@@ -135,6 +135,8 @@ Use HTML to format the email so it looks nicely, using bullet-points and styling
 }
 ```
 
+5. Now save your configuration and try to use the MCP client by asking it to send you an email
+
 ### 3. Advanced Workflow Orchestration
 
 In this part of the workshop we are going to use an external MCP.
@@ -145,13 +147,17 @@ In addition to the MCP we're going to install the Toolhouse CLI.
 3. Connect the CLI to your Toolhouse account with `th login`
 4. Create a new agent with `th new`
 5. Follow the steps on screen
-6. Open the file you just created and edit it to match the following:
-7.
+6. Open the file you just created and edit it to match the following line at the bottom:
 
-## 🔗 Connection to Final Agent
+```
+mcp_servers: ["https://mcp.zapier.com/api/mcp/s/MjhlNjNiN2EtMzM4YS00ZTVjLTlhYTktMjc4YTEyNmIxMmY2OjQyMmQ2YmFiLWU1NzItNDMwNy1iNGY3LTdhZTVkYjRjNzM1==/sse"]
+```
 
-Using the CLI you're going to run and deploy your agent
-Here's how you can do it
+7. Now edit the lines around the prompt to create a prompt that defines the agent
+8. Also change the message line to create a message which will instruct the agent to create a new event
+9. Now run `th run <filename>` to see your agent run and create a new google calendar event via MCP
+10. Now deploy your agent with `th deploy <filename>`
+11. Notice you have been given a unique cURL endpoint you can call to execute this agent on demand now
 
 ### How This Workshop Contributes:
 
