@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ai-chat-app:
+    build: .
+    ports:
+      - "3000:3000"
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - TOOLHOUSE_API_KEY=${TOOLHOUSE_API_KEY}
+      - NODE_ENV=development
+    env_file:
+      - .env
+    volumes:
+      # Mount the entire project for development
+      - .:/app
+      # Preserve node_modules and .next from container
+      - /app/node_modules
+      - /app/.next
+    restart: unless-stopped
+    command: ["bash", "-c", "cd /app && python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload & npm run dev & wait"] 
