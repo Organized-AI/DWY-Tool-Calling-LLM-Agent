@@ -392,3 +392,7 @@ This project is open source and available under the MIT License.
 <img src="assets/logo.png" alt="Human-AI Collaboration" width="100" height="100" style="border-radius: 15px; margin-top: 20px; box-shadow: 0 4px 16px rgba(255, 193, 7, 0.4);">
 
 </div>
+
+---
+
+Maintained by Jordaaan Hill ([LinkedIn](https://www.linkedin.com/in/jordaaanhill)).
